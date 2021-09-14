@@ -15,10 +15,12 @@ namespace Scheduler
     public partial class CaseWorkerVisualSchedule : UserControl
     {
         private readonly CaseWorker _caseWorker;
+        private Action _meetingAddedHandler;
 
-        public CaseWorkerVisualSchedule(CaseWorker caseWorker)
+        public CaseWorkerVisualSchedule(CaseWorker caseWorker, Action meetingAddedHandler)
         {
             _caseWorker = caseWorker;
+            _meetingAddedHandler = meetingAddedHandler;
             InitializeComponent();
 
             label_CaseWorkerName.Text = _caseWorker.Name;
@@ -32,15 +34,33 @@ namespace Scheduler
 
         private void Button_ChangeDate_Click(object sender, EventArgs e)
         {
-            int index = listBox_Meetings.SelectedIndex; 
-            _caseWorker.ChangeMeeting(index, dateTimePicker.Value);
-            RefreshDisplayedMeetings();
+            try
+            {
+                int index = listBox_Meetings.SelectedIndex;
+                _caseWorker.ChangeMeeting(index, dateTimePicker.Value);
+                RefreshDisplayedMeetings();
+            }
+            catch (MeetingOverlapException exception)
+            {
+              
+               MessageBox.Show("Error");
+            }
+            
         }
 
         private void Button_Add_Click(object sender, EventArgs e)
         {
-            _caseWorker.NewDateAdded(dateTimePicker.Value);
-            RefreshDisplayedMeetings();
+            try
+            {
+                _caseWorker.NewDateAdded(dateTimePicker.Value);
+                RefreshDisplayedMeetings();
+                _meetingAddedHandler();
+            }
+            catch (MeetingOverlapException exception)
+            {
+                MessageBox.Show(exception.Message, "Overlap", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+           
         }
 
         public void RefreshDisplayedMeetings()

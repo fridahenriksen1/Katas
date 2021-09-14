@@ -54,16 +54,33 @@ namespace OnlineOrderSystem
                 {
                     // TODO lägg till en dictionary itemRecord som har nyckeltyp 'string' och värdetyp 'int'
 
+                    Dictionary<string, int> itemRecord = new Dictionary<string, int>();
+                   /* itemRecord["electric bicycle"] = 1;
+                    itemRecord["trampoline"] = 1;
+                    itemRecord["bouquet"] = 1;*/
+                    
+
                     foreach (var order in orders)
                     {
-                        
+
+                        Console.WriteLine(order.Name);
+                        if (itemRecord.ContainsKey(order.Name))
+                        {
+                            itemRecord[order.Name] = +1;
+                        }
+                        else
+                        {
+                            itemRecord[order.Name] = 1;
+                        }
+
                     }
 
-                    //foreach (var record in itemRecord)
+                    foreach (var record in itemRecord)
                     {
-                        
+                       Console.WriteLine("item: " + record.Key + "amount: " + record.Value); 
                     }
-                    Console.WriteLine("6: Show amount of each order");
+
+                    Console.ReadLine();
                 }
                 else if (choice == 7)
                 {

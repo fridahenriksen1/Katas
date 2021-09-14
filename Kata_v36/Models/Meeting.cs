@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic;
 
 namespace Scheduler.Models
 {
@@ -33,7 +34,21 @@ namespace Scheduler.Models
         {
             string date = Start.ToString("d'/'M'/'yy");
 
-            string info = date;
+            string startTime = Start.ToString("H:mm");
+
+           // string endTime = Start.ToString("H:mm");
+
+            DateTime end = Start + Duration;
+            string meetingEnd = end.ToString("H:mm");
+
+
+                           string info = date + " " + startTime + meetingEnd;
+
+          
+
+           /* string totalTime = date + startTime + endTime;
+            totalTime = Start.ToString("H:mm");*/
+            
 
             if (Applicant != null)
                 info += " with: " + Applicant.Name;

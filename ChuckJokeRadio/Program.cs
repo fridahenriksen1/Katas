@@ -20,8 +20,15 @@ namespace ChuckJokeRadio
                 int end = json.IndexOf("\"}", start);
 
                 string joke = json.Substring(start, end - start);
+
+                string startDateTag = "\"created_at\":\"";
+                int startDate = json.IndexOf(startDateTag) + startDateTag.Length;
+                int endDate = json.IndexOf(" ", startDate);
+                
+                string date = json.Substring(startDate, endDate - startDate);
                 
                 Console.WriteLine(joke);
+                Console.WriteLine("This joke was submitted " + " " + date);
 
                 Console.WriteLine();
                 Console.Write("Press enter for another joke");

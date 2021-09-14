@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Scheduler.Models;
@@ -30,6 +31,7 @@ namespace Scheduler
 
             RefreshApplicants();
             RefreshFreeSpotsLabel();
+            
         }
 
         private void Button_RandomlyAssignApplicants_Click(object sender, System.EventArgs e)
